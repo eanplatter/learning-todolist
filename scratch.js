@@ -1,7 +1,4 @@
-var listItems = [];
+omg: string
+var omg = "omg"
 
-$('#add').on('click', function() {
-  listItems.push($('#input').val)
-})
-
-IMPERATIVE
+omg + 3

@@ -2,12 +2,23 @@ import React, { Component } from 'react'
 import Item from './Item'
 
 class List extends Component {
+  handleClickDone(id) {
+    this.props.onClickDone(id)
+  }
   render() {
+    const items = this.props.listItems
+    const renderedItems = items.map(item => {
+      return (
+        <li key={item.id}>
+          <Item listItem={item} onClickDone={this.handleClickDone.bind(this)} />
+        </li>
+      )
+    })
     return (
       <div>
         List
         <ul>
-          <Item />
+          {renderedItems}
         </ul>
       </div>
     )

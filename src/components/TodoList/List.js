@@ -5,12 +5,17 @@ class List extends Component {
   handleClickDone(id) {
     this.props.onClickDone(id)
   }
+
+  handleRemoveItem(id) {
+    this.props.onClickRemove(id)
+  }
+
   render() {
     const items = this.props.listItems
     const renderedItems = items.map(item => {
       return (
         <li key={item.id}>
-          <Item listItem={item} onClickDone={this.handleClickDone.bind(this)} />
+          <Item listItem={item} onClickDone={this.handleClickDone.bind(this)} onClickRemove={this.handleRemoveItem.bind(this)} />
         </li>
       )
     })

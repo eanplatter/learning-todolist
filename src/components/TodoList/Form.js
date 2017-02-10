@@ -14,6 +14,12 @@ class Form extends Component {
     this.props.onSubmit()
   }
 
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.handleSubmit()
+    }
+  }
+
   handleChange(e) {
     e.preventDefault()
     var theValue = e.target.value
@@ -25,6 +31,7 @@ class Form extends Component {
       <div>
         <input 
           value={this.props.value} 
+          onKeyPress={this.handleKeyPress.bind(this)}
           onChange={this.handleChange.bind(this)}
         />
         <button onClick={this.handleSubmit.bind(this)}>

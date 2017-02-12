@@ -29,6 +29,15 @@ class TodoList extends Component {
     })
   }
 
+  handleRemoveItem(id) {
+    const currentItems = this.state.items.slice()
+    const index = currentItems.map(item => item.id).indexOf(id)
+    currentItems.splice(index, 1)
+    this.setState({
+      items: currentItems,
+    })
+  }
+
   handleSubmitItem() {
     if (!this.state.inputValue) return
     const newItem = {
@@ -47,7 +56,7 @@ class TodoList extends Component {
   handleClickDone(id) {
     const items = this.state.items.map(item => {
       if (item.id === id) {
-        item.checked = true
+        item.checked = !item.checked
       }
       return item
     })
@@ -71,6 +80,7 @@ class TodoList extends Component {
         <List
           listItems={this.state.items}
           onClickDone={this.handleClickDone.bind(this)}
+          onClickRemove={this.handleRemoveItem.bind(this)}
         />
       </div>
     )

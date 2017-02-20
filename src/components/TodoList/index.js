@@ -1,5 +1,7 @@
 // @flow
 import React, { Component } from 'react'
+import Immutable from 'immutable'
+import R from 'ramda'
 import Form from './Form'
 import List from './List'
 
@@ -15,11 +17,15 @@ type TodoListStateT = {
   inputValue: string,
 }
 
+const idEq = R.propEq('id')
+const idNotEq = R.complement(idEq)
+
+
 class TodoList extends Component {
   state: TodoListStateT;
 
   state = {
-    items: [],
+    items: new Immutable.List(),
     inputValue: '',
   }
 
@@ -30,11 +36,10 @@ class TodoList extends Component {
   }
 
   handleRemoveItem(id) {
-    const currentItems = this.state.items.slice()
-    const index = currentItems.map(item => item.id).indexOf(id)
-    currentItems.splice(index, 1)
+    const idEq = R.propEq('id')
+    const idNotEq = R.complement(idEq)
     this.setState({
-      items: currentItems,
+      items: R.filter(idNotEq(id), this.state.items),
     })
   }
 
@@ -46,9 +51,8 @@ class TodoList extends Component {
       createdAt: new Date(),
       checked: false,
     }
-    const newArr = this.state.items.concat(newItem)
     this.setState({
-      items: newArr,
+      items: this.state.items.push(newItem),
       inputValue: '',
     })
   }
